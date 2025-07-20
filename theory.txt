@@ -1,0 +1,131 @@
+Authentication -<> auth
+and 
+Authorization -> ath
+ in node JS
+
+login -> details -> {email, name, lastName, phoneNo}-> AUTH -> let me check -> login payload.
+
+
+example : prishu@gmail.com -> 1234 -> login UI
+
+login UI -> login_payload -> enter -> data /get -> server -> express -> DB (PostGRE, Mongo) -> 1000 -> email is always unique.
+1000 -> 1000 unique Emails
+const email = userEmail 
+const email === "db.allEmail" -> exists
+email.password -> db.userPasword -> email -> prishu@gmail.com, passowrd -> 1234 -> email -> password -> check if password is true.
+
+email -> exists && password is true
+
+request 200
+user exists and login -> Homepage route gets completed.
+
+
+2004-2012 //Facebook
+1 billion monthly active users in October 2012. 
+10000000000
+1. user logs in
+2.server creates a session amd stores user info in memory and database.
+3.server sends a sessionID as a cookie to the client.
+4. IRCTC is working on this.
+
+but this process is very slow.
+pros : simple, well supported in browsers.
+limitations : scalability -> what is scalability? -> that the session id are stored in server memory or DB ?
+faltu ka data in server and DB. 1-> login -> 2 sessionId -> 2*10e9 =>  2 billion users data in DB IN A DAY.
+
+MONGO DB -> 500 MB
+server -> hard drive/storage etc 
+
+2*10e9 in a day against a serverdata which is 1TB 
+3lakh -> 1Tb -> 18TB
+10kb*2*10e9 = 20TB, 18TB etc. 
+
+18 servers -> 18*3lakh => 54 lakh for a storage of just user login. that too for a day - > 54 lakh. 
+facebook -> photos/videos/chat/posts/grpup -> server cost ? 
+
+
+statelessness - > REST API is stateless. 2013-> API -> stateful -> server side storage. node/experss developer bottleneck.
+
+cross platform issue - > sessions are cookies based (browser). app, IOT
+
+security -> session hijacking etc.
+
+
+
+
+//JWT- >JSON WEB TOKENS.
+
+URL safe token format used for securely transmitting information between parties as json object.
+
+{name, email, email etc}
+
+JWT -> it is stored on the client side UI side usually in localStorage or memory.
+server doesnt store any session data. IT just verifies the token.
+allows the project to have horizontal scalability easily. multiple servers can server requests independently.
+
+
+
+server1-server2-server3-server-4-etc - all on the same level //horizontal
+
+
+server1                                                      //vertical
+|
+server2
+|
+server3
+|
+server4
+|
+etc
+
+mobile ready
+
+self-contained and secure
+
+JWT contains all user info, and it's digit6ally signed using a secret key.
+server doesn't need a query against a DB just to validate the user.
+54 - 0
+
+
+example of JWT payload.
+
+{
+    "userid" : "123",
+    "role" "admin",
+    "exp" : 1212121221212112 etc
+    
+}
+
+JWT -> json web token. 
+
+
+structure.
+
+<header>.<payload>.<signature>
+each of the part is Base64URL-encoded. which means it is safe to use in URL's.
+
+Header -> it consists of 2 parts : type of token and signing algo.
+
+{
+    "alg" : "HS256",
+    "typ" "jwt"
+}
+
+
+
+payload :
+typical user data + metadata 
+{
+    "userId" : "123456",
+    "username" "sanat",
+    "role" : "admin",
+    "exp": "12212 etc
+}
+
+
+signature:
+This ensures the token hasn't been tempered with.
+
+HMACSHA2569(
+    base64URL()
+)
